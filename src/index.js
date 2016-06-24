@@ -87,7 +87,6 @@ export function restErrorHandler(log) {
         log.error('Server error', obj);
       }
       res.status(err.httpStatus).send(error);
-      next();
     } else {
       next(err);
     }
@@ -101,14 +100,11 @@ export function unexpectedErrorHandler(log) {
   // This function MUST have 4 arguments for it to be recognized as an error
   // handler in express.
   return (err, req, res, next) => {
-    console.log(JSON.stringify(err))
-    console.log('err', err.message);
     log.error('Server error', err);
     res.status(500).send({
       error: 'unknown_error',
       error_description: err.message,
       error_details: err.stack,
     });
-    next();
   }
 }

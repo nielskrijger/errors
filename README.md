@@ -95,13 +95,13 @@ The express error handlers part of this package transform `RestError`s to the fo
 
 This format is similar to the [OAuth2 Error syntax](https://tools.ietf.org/html/rfc6749#section-4.1.2.1).
 
-You can use error handlers like this:
+You can use the error handlers like this:
 
 ```js
 import express from 'express';
 import log from '@nielskrijger/logger';
 import {
-  ServerError,
+  ValidationErrors
   restErrorHandler,
   unexpectedErrorHandler,
 } from '@nielskrijger/errors';

@@ -14,29 +14,53 @@ $ npm install --save @nielskrijger/errors
 
 ## Errors
 
-You can use the provided error class like this:
+The following errors classes are available:
+
+Class name        | HTTP | Code         | Error message
+------------------|------|--------------|------------------------------------------
+ServerError       |  500 | server_error | An internal server problem occurred
+BadRequestError   |  400 | bad_request  | One or more validation errors were found
+UnauthorizedError |  401 | unauthorized | Invalid credentials
+ForbiddenError    |  403 | forbidden    | Insufficient privileges
+NotFoundError     |  404 | not_found    | Resource not found
+ValidationError   |  400 | bad_request  | One or more validation errors were found
+ValidationErrors  |  400 | bad_request  | One or more validation errors were found
+
+**Changing error code/message**
+
+Change the error message as follows:
 
 ```js
 import {
-  ServerError,
-  NotFoundError,
   BadRequestError,
-  ForbiddenError,
+} from '@nielskrijger/errors';
+
+throw new BadRequestError('invalid_syntax', 'The message body is malformed');
+```
+
+**Custom error class**
+
+When changing the error code consider creating a subclass instead:
+
+```js
+import { BadRequestError } from '@nielskrijger/errors';
+
+export class SyntaxError extends BadRequestError {
+  constructor() {
+    super('invalid_syntax', 'The message body is malformed');
+  }
+}
+```
+
+**Validation errors**
+
+Validation errors extend `BadRequestError`s and add additional error details for the client .
+
+```js
+import {
   ValidationError,
   ValidationErrors,
 } from '@nielskrijger/errors';
-
-// { httpStatus: 400, code: 'bad_request', message: 'One or more validation errors were found' }
-throw new BadRequestError();
-
-// { httpStatus: 403, code: 'forbidden', message: 'Insufficient privileges' }
-throw new ForbiddenError();
-
-// { httpStatus: 404, code: 'not_found', message: 'Resource not found' }
-throw new NotFoundError();
-
-// { httpStatus: 500, code: 'server_error', message: 'An internal server problem occurred' }
-throw new ServerError();
 
 /*
 {

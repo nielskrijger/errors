@@ -1,6 +1,6 @@
 {
   "name": "@nielskrijger/errors",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Basic express error handler",
   "main": "dist/index.js",
   "author": "Niels Krijger <niels@kryger.nl>",

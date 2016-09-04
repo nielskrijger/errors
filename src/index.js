@@ -14,7 +14,9 @@ export class ServerError extends RestError {
 }
 
 export class BadRequestError extends RestError {
-  constructor(code = 'bad_request', message = 'One or more validation errors were found') {
+  constructor(code = 'invalid_request', message = `The request is missing a
+    required parameter, includes an invalid parameter value, includes a parameter
+    more than once, or is otherwise malformed.`) {
     super(400, code, message);
   }
 }
